@@ -1,9 +1,6 @@
-Yatzy server
-============
+# Yatzy server
 
-
-Rules
----
+### Rules
 
 Ones: The sum of all dice showing the number 1.
 Twos: The sum of all dice showing the number 2.
@@ -26,8 +23,7 @@ Chance: Any combination of dice. Score: Sum of all the dice.
 Yatzy: All five dice with the same number. Score: 50 points.
 
 
-API
----
+### API
 
 When connection is established between a bot and the server, the bot waits for messages from the server on the given format:
 
