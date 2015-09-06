@@ -30,7 +30,7 @@ When connection is established between a bot and the server, the bot waits for m
     {
         'key': 'STANDING',
         'roundNumber': 1,
-        'score': [
+        'standing': [
             {
                 'playerName': 'Bot1Anna',
                 'rating': 1200,
@@ -48,6 +48,9 @@ When connection is established between a bot and the server, the bot waits for m
             'dice': [5, 6, 1, 1, 3]
         }
     }
+
+The `standing` tells you how the other players have scored. You may need to adjust your tactics accordingly! The `score`
+format is simply all fifteen score boxes concatenated in a string. The character `-` means it is not used. 
     
 If `currentPlayer` is your bot, it is your bot's time to play! The bot may reply with two kinds of commands. If it still
 has more rolls, it may chose to roll a selection of dice again. Here the first, second and 5th die is rolled:
