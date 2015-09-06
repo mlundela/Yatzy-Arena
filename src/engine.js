@@ -77,7 +77,7 @@ function Engine(wss) {
                 } else if (game.standing[game.currentPlayer.index].score[d.command.box] === '-') {
 
                     // todo validate dice
-                    
+
                     game.standing[game.currentPlayer.index].score[d.command.box] =
                         _.sum(game.currentPlayer.dice.filter(function (die) {
                             return die in d.command.dice;

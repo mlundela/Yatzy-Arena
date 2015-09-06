@@ -1,5 +1,13 @@
 # Yatzy server
 
+Install
+    
+    npm install
+    
+Run
+
+    node server.js
+
 ### Rules
 
 1. Ones: The sum of all dice showing the number 1.
