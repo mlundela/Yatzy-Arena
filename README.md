@@ -75,3 +75,7 @@ into the first score box, giving you two points:
         'box': 1, // Ones
         'dice': [2, 3]
     }
+
+### Authentication
+
+Provide your access token in the header as the value of 'X_YATZY_BOT_TOKEN'.
