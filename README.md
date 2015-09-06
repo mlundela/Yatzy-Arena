@@ -25,10 +25,11 @@ Full House: Any set of three combined with a different pair. Score: Sum of all t
 Chance: Any combination of dice. Score: Sum of all the dice.
 Yatzy: All five dice with the same number. Score: 50 points.
 
-When connection is established between a bot and the server, the bot waits for messages from the server on the given format:
 
-Server sends
+API
 ---
+
+When connection is established between a bot and the server, the bot waits for messages from the server on the given format:
 
     {
         'key': 'STANDING',
@@ -52,9 +53,8 @@ Server sends
         }
     }
     
-If `currentPlayer` is your bot, it is your bot's time to play. The bot may reply with two kinds of commands. If it still
-has more rolls, it may chose to roll a selection of dice again. Here the first, second and 5th die is rolled.
-
+If `currentPlayer` is your bot, it is your bot's time to play! The bot may reply with two kinds of commands. If it still
+has more rolls, it may chose to roll a selection of dice again. Here the first, second and 5th die is rolled:
 
     {
         'type': 'ROLL_DICE',
@@ -62,7 +62,7 @@ has more rolls, it may chose to roll a selection of dice again. Here the first, 
     }
     
 When you have no more rolls, it is expected that your bot selects which score box it wants to use. It can do so by 
-sending the `SCORE_BOX` command:
+sending the `SCORE_BOX` command. Please note that it does not have to use all its rolls.
     
     {
         'type': 'SCORE_BOX',
