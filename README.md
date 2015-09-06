@@ -62,10 +62,11 @@ has more rolls, it may chose to roll a selection of dice again. Here the first, 
     }
     
 When you have no more rolls, it is expected that your bot selects which score box it wants to use. It can do so by 
-sending the `SCORE_BOX` command. Please note that it does not have to use all its rolls.
+sending the `SCORE_BOX` command. Please note that it does not have to use all its rolls. Here the two ones is put
+into the first score box, giving you two points:
     
     {
         'type': 'SCORE_BOX',
-        'box': 0, // Ones,
+        'box': 0, // Ones
         'dice': [2, 3]
     }
