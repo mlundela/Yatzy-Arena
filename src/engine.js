@@ -29,7 +29,7 @@ function Engine(wss) {
             standing: players.map(function (b) {
                 return {
                     playerName: b,
-                    score: ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-']
+                    score: [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
                 }
             }),
             currentPlayer: {
@@ -128,14 +128,18 @@ function Engine(wss) {
         return game.roundNumber > 15;
     }
 
+    function startNewGame() {
+        game = createGame();
+        wss.send(game.currentPlayer.playerName, game);
+    }
+
     wss.commands$.subscribe(function (d) {
 
         switch (d.command.key) {
             case 'JOIN':
                 bots.push(d.bot);
                 if (!game) {
-                    game = createGame();
-                    wss.send(game.currentPlayer.playerName, game);
+                    startNewGame();
                 }
                 break;
 
@@ -143,6 +147,8 @@ function Engine(wss) {
                 bots.splice(bots.indexOf(d.bot), 1);
                 if (bots.length === 0) {
                     game = null;
+                } else {
+                    startNewGame();
                 }
                 break;
 
@@ -170,7 +176,7 @@ function Engine(wss) {
                     break;
                 }
 
-                if (game.standing[game.currentPlayer.index].score[d.command.box - 1] !== '-') {
+                if (game.standing[game.currentPlayer.index].score[d.command.box - 1] >= 0) {
                     console.log('Illegal command %s from %s (score box is already used)', d.command.key, d.bot);
                     // todo ???
                     break;
@@ -190,8 +196,7 @@ function Engine(wss) {
                     });
                     var scoreBoard = _.sortByOrder(scores, 'score', 'desc');
                     console.log('Final scoreboard: ', scoreBoard);
-                    game = createGame();
-                    wss.send(game.currentPlayer.playerName, game);
+                    startNewGame();
                 } else {
                     game.currentPlayer = {
                         index: nextIdx,

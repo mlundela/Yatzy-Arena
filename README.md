@@ -1,4 +1,4 @@
-# Yatzy server
+# Yatzy Arena
 
 Install
     
@@ -7,6 +7,11 @@ Install
 Run
 
     node server.js
+    
+Run example clients
+
+    node example-client.js b1
+    node example-client.js b2
 
 ### Rules
 
@@ -40,12 +45,12 @@ When connection is established between a bot and the server, the bot waits for m
             {
                 'playerName': 'Bot1Anna',
                 'rating': 1200,
-                'score': '-,-,-,-,-,-,-,-,-,-,-,-,-,-,-'
+                'score': [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
             },
             {
                 'playerName': 'DumBot',
                 'rating': 1000,
-                'score': '-,-,-,-,-,-,-,-,-,-,-,-,-,-,-'
+                'score': [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
             }
         ],
         'currentPlayer': {
@@ -56,7 +61,8 @@ When connection is established between a bot and the server, the bot waits for m
     }
 
 The `standing` tells you how the other players have scored. You may need to adjust your tactics accordingly! The `score`
-format is simply all fifteen score boxes concatenated in a string. The character `-` means it is not used. 
+format is simply all fifteen score boxes, where the number `-1` means it has not yet been filled. Once the game begin,
+this array will be filled with non negative values.
     
 If `currentPlayer` is your bot, it is your bot's time to play! The bot may reply with two kinds of commands. If it still
 has more rolls, it may chose to roll a selection of dice again. Here the first, second and 5th die is rolled:
