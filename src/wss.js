@@ -1,26 +1,47 @@
 var url = require('url'),
-    WebSocketServer = require('ws').Server;
+    WebSocketServer = require('ws').Server,
+    Rx = require('rx'),
+    bots = require('../application').bots,
+    commands$ = new Rx.Subject();
 
 function createWSS(server) {
 
-    var wss = new WebSocketServer({server: server});
+    var server = new WebSocketServer({server: server});
 
-    wss.on('connection', function connection(ws) {
-        //var location = url.parse(ws.upgradeReq.url, true);
-        // you might use location.query.access_token to authenticate or share sessions
-        // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
+    server.on('connection', function connection(ws) {
 
-        ws.on('message', function incoming(message) {
-            console.log('received: %s', message);
-            ws.send(message);
-        });
+        var id = bots[ws.upgradeReq.headers['x_yatzy_bot_token']];
 
-        ws.send('something');
+        console.log('WSS: Web socket \'%s\' connected (%s active sockets)', id, server.clients.length);
+
+        if (id) {
+
+            ws.on('message', function (msg) {
+                console.log('WSS: received message %s from %s: ', msg, id);
+                commands$.onNext({
+                    bot: id,
+                    command: JSON.parse(msg)
+                });
+            });
+
+            ws.on('close', function () {
+                console.log('WSS: Web socket connection closed (%s active sockets)', server.clients.length);
+                commands$.onNext({
+                    bot: id,
+                    disconnected: true
+                });
+            });
+
+        } else {
+            ws.send("Authentication failed")
+        }
+
     });
 
-    return wss;
+    return server;
 }
 
 module.exports = {
+    commands$: commands$.asObservable(),
     createWSS: createWSS
 };

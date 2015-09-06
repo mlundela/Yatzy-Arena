@@ -1,14 +1,9 @@
-var server = require('http').createServer()
-    , wss = require('./src/wss').createWSS(server)
-    , express = require('express')
-    , app = express()
-    , port = 4080;
+var server = require('http').createServer(),
+    wss = require('./src/wss'),
+    config = require('./application');
 
-app.use(function (req, res) {
-    res.send({msg: "hello"});
-});
+wss.createWSS(server);
 
-server.on('request', app);
-server.listen(port, function () {
+server.listen(config.port, function () {
     console.log('Listening on ' + server.address().port);
 });
