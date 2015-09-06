@@ -3,6 +3,7 @@ module.exports = {
   port: process.env.PORT || 4080,
 
   bots: {
-    "RW0XUSMD1X": "testBot"
+    "RW0XUSMD1X": "b1",
+    "pABSKahvxW": "b2"
   }
 };

@@ -75,6 +75,9 @@ into the first score box, giving you two points:
         'box': 1, // Ones
         'dice': [2, 3]
     }
+    
+In case the dice do not fulfill the requirement of the given box, the score will be set to zero and the next player's
+turn begins.
 
 ### Authentication
 

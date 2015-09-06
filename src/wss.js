@@ -7,7 +7,7 @@ var url = require('url'),
 var botSocketMap = {};
 
 function send(id, msg){
-    console.log('Send msg %s to %s', JSON.stringify(msg), JSON.stringify(id));
+    //console.log('Send msg %s to %s', JSON.stringify(msg), JSON.stringify(id));
     botSocketMap[id].send(JSON.stringify(msg));
 }
 
@@ -33,7 +33,7 @@ function createWSS(server) {
             });
 
             ws.on('message', function (msg) {
-                console.log('WSS: received message %s from %s: ', msg, id);
+                //console.log('WSS: received message %s from %s: ', msg, id);
                 commands$.onNext({
                     bot: id,
                     command: JSON.parse(msg)
