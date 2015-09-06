@@ -8,10 +8,6 @@
 4. Fours: The sum of all dice showing the number 4.
 5. Fives: The sum of all dice showing the number 5.
 6. Sixes: The sum of all dice showing the number 6.
-If a player manages to score at least 63 points (an average of three of each number) in the upper section, they are awarded a bonus of 50 points.
-
-Lower Section:
-
 7. One Pair: Two dice showing the same number. Score: Sum of those two dice.
 8. Two Pairs: Two different pairs of dice. Score: Sum of dice in those two pairs.
 9. Three of a Kind: Three dice showing the same number. Score: Sum of those three dice.
@@ -21,6 +17,8 @@ Lower Section:
 13. Full House: Any set of three combined with a different pair. Score: Sum of all the dice.
 14. Chance: Any combination of dice. Score: Sum of all the dice.
 15. Yatzy: All five dice with the same number. Score: 50 points.
+
+If a player manages to score at least 63 points (an average of three of each number) in the upper section, they are awarded a bonus of 50 points.
 
 
 ### API
