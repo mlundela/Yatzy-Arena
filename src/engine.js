@@ -68,9 +68,7 @@ function Engine(wss) {
             case 8: // Two pairs
                 return dice.length === 4 &&
                     _.uniq(dice).length === 2 &&
-                    _.every(_.partition(dice, function (n) {
-                        return n;
-                    }), function (p) {
+                    _.every(_.groupBy(dice), function (p) {
                         return p.length === 2;
                     });
 
@@ -95,9 +93,7 @@ function Engine(wss) {
             case 13: // Full House: Any set of three combined with a different pair. Score: Sum of all the dice.
                 return dice.length === 5 &&
                     _.uniq(dice).length === 2 &&
-                    _.every(_.partition(dice, function (n) {
-                        return n;
-                    }), function (p) {
+                    _.every(_.groupBy(dice), function (p) {
                         return p.length === 2 || p.length === 3;
                     });
 
@@ -106,7 +102,7 @@ function Engine(wss) {
 
             case 15: // Yatzy: All five dice with the same number. Score: 50 points.
                 return dice.length === 5 &&
-                    _.uniq(dice).length === 5;
+                    _.uniq(dice).length === 1;
 
             default:
                 return false;
