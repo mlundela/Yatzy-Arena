@@ -1,13 +1,4 @@
-var server = require('http').createServer(),
-    wss = require('./src/wss'),
-    config = require('./application'),
-    Engine = require('./src/engine');
+var Engine = require('./src/game-engine'),
+    ss = require('./src/socket-server');
 
-wss.createWSS(server);
-
-// Start engine!
-var engine = new Engine(wss);
-
-server.listen(config.port, function () {
-    console.log('Listening on ' + server.address().port);
-});
+new Engine(ss);

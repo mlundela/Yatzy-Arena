@@ -1,7 +1,6 @@
-//var Rx = require('rx');
 var _ = require('lodash');
 
-function Engine(wss) {
+function Engine(socketServer) {
 
     var bots = [];
     var game;
@@ -130,10 +129,10 @@ function Engine(wss) {
 
     function startNewGame() {
         game = createGame();
-        wss.send(game.currentPlayer.playerName, game);
+        socketServer.send(game.currentPlayer.playerName, game);
     }
 
-    wss.commands$.subscribe(function (d) {
+    socketServer.commands$.subscribe(function (d) {
 
         switch (d.command.key) {
             case 'JOIN':
@@ -162,7 +161,7 @@ function Engine(wss) {
                 if (validateRollCommand()) {
                     game.currentPlayer.rollsLeft -= 1;
                     game.currentPlayer.dice = roll(game.currentPlayer.dice, d.command.dice);
-                    wss.send(game.currentPlayer.playerName, game);
+                    socketServer.send(game.currentPlayer.playerName, game);
                 } else {
                     console.warn('Illegal command %s from %s (no more rolls left)', d.command.key, d.bot);
                     // todo ???
@@ -204,7 +203,7 @@ function Engine(wss) {
                         rollsLeft: 2,
                         dice: rollAll()
                     };
-                    wss.send(game.currentPlayer.playerName, game);
+                    socketServer.send(game.currentPlayer.playerName, game);
                 }
                 break;
 

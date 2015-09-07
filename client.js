@@ -1,24 +1,19 @@
-var WebSocket = require('ws');
+var net = require('net');
+var config = require('./config');
 
 var bots = {
     b1: "RW0XUSMD1X",
     b2: "pABSKahvxW"
 };
 
-var ws = new WebSocket('ws://localhost:4080', {
-    headers: {
-        X_YATZY_BOT_TOKEN: bots[process.argv[2]]
-    }
-});
+var client = new net.Socket();
 
 function send(command) {
-    ws.send(JSON.stringify(command));
+    client.write(JSON.stringify(command));
 }
 
 var i = 1;
-
 function threeRolls(n) {
-
     if (i++ % 3 == 0) {
         send({key: 'SCORE_BOX', box: n, dice: [0, 1]});
     } else {
@@ -26,15 +21,23 @@ function threeRolls(n) {
     }
 }
 
-ws.on('open', function open() {
-    console.log("Connected!");
+client.connect(config.socketPort, '127.0.0.1', function() {
+    console.log('Connected');
+    var login = {
+        key: 'LOGIN',
+        secret: bots[process.argv[2]]
+    };
+    client.write(JSON.stringify(login));
 });
 
-ws.on('message', function (msg, flags) {
+client.on('data', function(msg) {
     var game = JSON.parse(msg);
     if (game.currentPlayer.playerName === process.argv[2]) {
-        //threeRolls();
         console.log('%s', game.roundNumber);
         threeRolls(game.roundNumber);
     }
+});
+
+client.on('close', function() {
+    console.log('Connection closed');
 });
