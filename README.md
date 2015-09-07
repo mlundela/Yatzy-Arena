@@ -10,8 +10,8 @@ Run
     
 Run example clients
 
-    node example-client.js b1
-    node example-client.js b2
+    node client.js b1
+    node client.js b2
 
 ### Rules
 
@@ -36,7 +36,16 @@ If a player manages to score at least 63 points (an average of three of each num
 
 ### API
 
-When connection is established between a bot and the server, the bot waits for messages from the server on the given format:
+[JSON](https://en.wikipedia.org/wiki/JSON) is used as the message format.
+
+When connection is established between a bot and the server, the server expects the bot to send a `login` command:
+    
+    {
+        'key': 'LOGIN',
+        'secret': '<YOUR_SECRET_HERE>'
+    }
+
+Then the bot waits for messages from the server on the given format:
 
     {
         'key': 'STANDING',
@@ -84,7 +93,3 @@ into the first score box, giving you two points:
     
 In case the dice do not fulfill the requirement of the given box, the score will be set to zero and the next player's
 turn begins.
-
-### Authentication
-
-Provide your access token in the header as the value of 'X_YATZY_BOT_TOKEN'.
