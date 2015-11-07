@@ -1,5 +1,6 @@
 var _ = require('lodash');
 
+
 function validateScoreCommand(n, dice) {
 
     switch (n) {

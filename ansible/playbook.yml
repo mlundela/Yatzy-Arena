@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  connection: local
+  sudo: no
+  vars:
+    docker_pull: missing
+
+  tasks:
+  - include: tasks/main.yml
+    version: latest
+#    use_tls: encrypt

@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var utils = require('./game-utils');
+var elo = require('./elo');
 
 function Engine(socketServer) {
 

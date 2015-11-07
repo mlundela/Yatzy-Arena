@@ -1,0 +1,26 @@
+---
+- name: install yatzy data container
+  docker:
+    name: yatzy-data
+    image: yatzy-arena
+#    registry: https://vimond-docker-dockerv2-local.artifactoryonline.com
+    state: present
+#    use_tls: "{{ use_tls | d('no') }}"
+
+- name: install yatzy application container
+  docker:
+    name: yatzy
+    image: yatzy-arena
+#    registry: https://vimond-docker-dockerv2-local.artifactoryonline.com
+    pull: "{{ docker_pull | d('always') }}"
+    state: reloaded
+    restart_policy: always
+    expose:
+      - 8132
+    ports:
+      - 8132:8132
+#    use_tls: "{{ use_tls | d('no') }}"
+    volumes_from:
+      - yatzy-data
+  tags:
+    - yatzy
